@@ -15,7 +15,7 @@
           </div>
 
           <!-- if charcters -->
-          <div v-if="$route.path === '/'">
+          <div v-if="$route.path === '/'" class="gallery__bottom">
             <h3 class="gallery__nick">nick "{{ character.nick }}"</h3>
             <p class="gallery__name">name "{{ character.name }}"</p>
             <p class="gallery__date">birthday: "{{ character.birthday }}"</p>
