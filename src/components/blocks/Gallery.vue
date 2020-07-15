@@ -13,10 +13,19 @@
           >
             <img :src="character.imgSrc" alt="" class="gallery__img" />
           </div>
-          <div class="gallery__bottom gallery__bottom--season">
+
+          <!-- if charcters -->
+          <div v-if="$route.path === '/'">
             <h3 class="gallery__nick">nick "{{ character.nick }}"</h3>
             <p class="gallery__name">name "{{ character.name }}"</p>
             <p class="gallery__date">birthday: "{{ character.birthday }}"</p>
+          </div>
+
+          <!-- else seasons -->
+          <div v-else class="gallery__bottom gallery__bottom--season">
+            <h3 class="gallery__nick">title: {{ character.title }}</h3>
+            <p class="gallery__name">season: {{ character.season }}</p>
+            <p class="gallery__date">date: {{ character.air_date }}</p>
           </div>
         </div>
         <!-- gallery__card END -->
