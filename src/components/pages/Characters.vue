@@ -6,11 +6,17 @@
         <sidebar></sidebar>
       </div>
       <div class="col-md-9">
-        <button class="btn btn--sidebar" @click="filterByAlive()">
+        <button class="btn btn--sidebar" @click="filter = 'Alive'">
           filter by alive
         </button>
+        <button class="btn btn--sidebar" @click="filter = 'Deceased'">
+          filter by dead
+        </button>
+        <button class="btn btn--sidebar" @click="filter = 'all'">
+          show all
+        </button>
         <h1 class="text text--h1">Characters</h1>
-        <gallery :characters="characters"></gallery>
+        <gallery :characters="filteredCharacters"></gallery>
       </div>
     </div>
   </section>
@@ -28,8 +34,10 @@ export default {
     sidebar: Sidebar,
     gallery: Gallery
   },
+
   data() {
     return {
+      filter: 'all',
       characters: [
         {
           char_id: 1,
@@ -324,11 +332,40 @@ export default {
     }
   },
 
-  methods: {
-    filterByAlive() {
-      this.characters = this.characters.filter(el => el.status === 'Alive')
-      return this.characters
+  computed: {
+    filteredCharacters() {
+      // if (this.filter === '') {
+      //   return this.characters
+      // } else {
+      //   // before move to function
+      //   // prettier-ignore
+      //   // const filteredCharacters = this.characters.filter( el => el.status === this.filter )
+      //   // return filteredCharacters
+      //   // before move to function END
+
+      //   return this.filterByStatus(this.characters, this.filter)
+      // }
+
+      return this.filter === 'all'
+        ? this.characters
+        : this.filterByStatus(this.characters, this.filter)
     }
+  },
+
+  methods: {
+    filterByStatus(list, filter) {
+      const filteredList = list.filter(el => el.status === filter)
+      return filteredList
+    }
+
+    // filterByAlive() {
+    //   this.characters = this.characters.filter(el => el.status === 'Alive')
+    //   return this.characters
+    // },
+    // filterByDead() {
+    //   this.characters = this.characters.filter(el => el.status === 'Deceased')
+    //   return this.characters
+    // }
   }
 }
 </script>
