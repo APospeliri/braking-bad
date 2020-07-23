@@ -15,8 +15,12 @@
         <button class="btn btn--sidebar" @click="filter = 'all'">
           show all
         </button>
-        <h1 class="text text--h1">Characters</h1>
-        <gallery :characters="filteredCharacters"></gallery>
+        <h1 class="text text--h1">{{ title }}</h1>
+        <gallery
+          :characters="filteredCharacters"
+          :pageTitle="title"
+          @onUpdateInput="titleInput($event)"
+        ></gallery>
       </div>
     </div>
   </section>
@@ -37,6 +41,7 @@ export default {
 
   data() {
     return {
+      title: 'Characters',
       filter: 'all',
       characters: [
         {
@@ -334,18 +339,6 @@ export default {
 
   computed: {
     filteredCharacters() {
-      // if (this.filter === '') {
-      //   return this.characters
-      // } else {
-      //   // before move to function
-      //   // prettier-ignore
-      //   // const filteredCharacters = this.characters.filter( el => el.status === this.filter )
-      //   // return filteredCharacters
-      //   // before move to function END
-
-      //   return this.filterByStatus(this.characters, this.filter)
-      // }
-
       return this.filter === 'all'
         ? this.characters
         : this.filterByStatus(this.characters, this.filter)
@@ -356,16 +349,11 @@ export default {
     filterByStatus(list, filter) {
       const filteredList = list.filter(el => el.status === filter)
       return filteredList
-    }
+    },
 
-    // filterByAlive() {
-    //   this.characters = this.characters.filter(el => el.status === 'Alive')
-    //   return this.characters
-    // },
-    // filterByDead() {
-    //   this.characters = this.characters.filter(el => el.status === 'Deceased')
-    //   return this.characters
-    // }
+    titleInput(value) {
+      return (this.title = value)
+    }
   }
 }
 </script>

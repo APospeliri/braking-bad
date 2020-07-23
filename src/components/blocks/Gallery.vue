@@ -1,5 +1,11 @@
 <template>
   <section class="gallery">
+    <input
+      type="text"
+      class="input"
+      :value="pageTitle"
+      @keyup="updateTitle($event)"
+    />
     <div class="row">
       <div v-for="character in characters" :key="character.id" class="col-md-3">
         <!-- gallery__card -->
@@ -41,10 +47,20 @@ export default {
     characters: {
       type: Array,
       required: true
+    },
+    pageTitle: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {}
+  },
+
+  methods: {
+    updateTitle(event) {
+      this.$emit('onUpdateInput', event.target.value)
+    }
   }
 }
 </script>
