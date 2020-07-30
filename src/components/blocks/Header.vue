@@ -3,20 +3,13 @@
     <div class="container">
       <nav class="nav nav--navbar">
         <router-link
-          to="/"
-          :class="{ active: $route.path === '/' }"
+          v-for="item in pages"
+          :key="item.id"
+          :to="item.link"
+          :class="setActiveClass(item)"
           class="link link--navbar"
-          >characters
-        </router-link>
-        <router-link
-          to="/seasons"
-          :class="{ active: $route.path === '/seasons' }"
-          class="link link--navbar"
-          >seasons
-        </router-link>
-        <router-link to="/" class="link link--navbar">episodes </router-link>
-        <router-link to="/" class="link link--navbar">quote</router-link>
-        <router-link to="/" class="link link--navbar">deaths</router-link>
+          >{{ item.page }}</router-link
+        >
       </nav>
     </div>
   </header>
@@ -24,9 +17,23 @@
 
 <script>
 export default {
-  name: 'page-header',
+  name: 'top-nav',
   data() {
-    return {}
+    return {
+      pages: [
+        { link: '/', page: 'character' },
+        { link: '/seasons', page: 'seasons' },
+        { link: '/episodes', page: 'episodes' },
+        { link: '/quote', page: 'quote' },
+        { link: '/deaths', page: 'deaths' }
+      ]
+    }
+  },
+
+  methods: {
+    setActiveClass(item) {
+      return item.link === this.$route.path ? 'active' : ''
+    }
   }
 }
 </script>

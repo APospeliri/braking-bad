@@ -9,15 +9,16 @@
     <div class="row">
       <div v-for="character in characters" :key="character.id" class="col-md-3">
         <!-- gallery__card -->
-        <div
+        <router-link
+          :to="setLink(character)"
           :class="{ 'gallery__card--season': $route.path === '/seasons' }"
-          class="gallery__card"
+          class="gallery__card link"
         >
           <div
             :class="{ 'gallery__img-wrap--season': $route.path === '/seasons' }"
             class="gallery__img-wrap"
           >
-            <img :src="character.imgSrc" alt="" class="gallery__img" />
+            <img :src="character.img" alt="" class="gallery__img" />
           </div>
 
           <!-- if charcters -->
@@ -33,7 +34,7 @@
             <p class="gallery__name">season: {{ character.season }}</p>
             <p class="gallery__date">date: {{ character.air_date }}</p>
           </div>
-        </div>
+        </router-link>
         <!-- gallery__card END -->
       </div>
     </div>
@@ -60,6 +61,12 @@ export default {
   methods: {
     updateTitle(event) {
       this.$emit('onUpdateInput', event.target.value)
+    },
+
+    setLink(character) {
+      return this.$route.path === '/'
+        ? `/character/${character.char_id}`
+        : `/season/${character.episode_id}`
     }
   }
 }
